@@ -4,10 +4,37 @@ import './index.css';
 
 
 class Square extends React.Component {
+  constructor(props) {
+    // All React component classes that have a constructor should start with a super(props) call.
+    super(props);
+
+    // React components can have state by setting this.state in their constructors.
+    this.state = {
+      value: null
+    };
+  }
+
   render() {
     return (
-      <button className="square">
-        {/* TODO */}
+      <button 
+        className="square"
+
+        // vanilla js syntax, anonymous function
+        // onClick={function() { console.log('click') }}
+
+        // ES6 arrow function syntax
+        // onClick={() => { console.log('click') }}
+
+        // MISTAKE: forgetting to pass a function () => {}
+        // would evaluate whatever expression is inside {} right away,
+        // logging 'click' whenever component renders
+        // onClick={console.log('click')}
+
+        // update state to trigger re-render of the component
+        onClick={() => this.setState({ value: 'X' })}
+      >
+        {/* access index passed as value prop */}
+        {this.state.value}
       </button>
     );
   }
@@ -15,7 +42,8 @@ class Square extends React.Component {
 
 class Board extends React.Component {
   renderSquare(i) {
-    return <Square />;
+    // pass i as value prop to square
+    return <Square value={i}/>;
   }
 
   render() {
